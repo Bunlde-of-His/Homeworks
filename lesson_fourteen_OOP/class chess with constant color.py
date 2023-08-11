@@ -1,8 +1,5 @@
 from typing import List, Tuple
 
-from typing import List, Tuple
-
-
 class ChessPiece:
     WHITE = "white"
     BLACK = "black"
