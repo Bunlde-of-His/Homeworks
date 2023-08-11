@@ -12,6 +12,9 @@ class Phone:
     def accept_call(self):
         self.incoming_calls += 1
 
+    def __str__(self):
+        return f"Phone number: {self.number}, Incoming calls: {self.incoming_calls}"
+
 def main():
     phones = [
         Phone("47445723222"),
