@@ -18,6 +18,9 @@ class ChessPiece:
     def can_move_to(self, new_position: Tuple[int, int]):
         pass
 
+    def __str__(self):
+        return f"{self.color.capitalize()} {self.__class__.__name__} at {self.position}"
+
 class Pawn(ChessPiece):
     def can_move_to(self, new_position: Tuple[int, int]):
         x_diff = abs(new_position[0] - self.position[0])
