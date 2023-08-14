@@ -1,4 +1,4 @@
-class Emploee:
+class Employee:
     def __init__(self, name, salary_per_day):
         self.name = name
         self.salary_per_day = salary_per_day
@@ -11,11 +11,11 @@ class Emploee:
        return f'My Position is {self.name}!'
 
 
-class Recruiter(Emploee):
+class Recruiter(Employee):
     def work(self):
         return 'I come to the office and start to hiring.'
 
-class Developer(Emploee):
+class Developer(Employee):
     def work(self):
         return 'I come to the office and start to coding.'
 
