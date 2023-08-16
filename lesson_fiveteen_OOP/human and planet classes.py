@@ -56,7 +56,6 @@ print(planet.to_str())
 print(f"Humans on the planet: {planet.get_count()}")
 
 for human in humans:
-    print(human.to_str())
     print(f"Age: {human.get_age()} years")
 
 
