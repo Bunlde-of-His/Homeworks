@@ -33,8 +33,8 @@ recruiter_1 = Recruiter('Recruiter', 15)
 developer_1 = Developer('Developer', 20)
 
 print(recruiter_1.work())
-print(recruiter_1.__str__())
+print(str(recruiter_1))
 print(developer_1.work())
-print(developer_1.__str__())
+print(str(developer_1))
 
 print(salary_comparing(recruiter_1.salary_per_day, developer_1.salary_per_day))
