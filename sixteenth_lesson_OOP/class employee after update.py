@@ -1,11 +1,12 @@
 from datetime import datetime, timedelta
 
-
 class Employee:
+    WORKING_DAYS_PER_MONTH = 20
+    WORKING_DAYS_PER_WEEK = 5
+
     def __init__(self, name, salary_per_day):
         self.name = name
         self.salary_per_day = salary_per_day
-        self.working_days_per_month = 20  # Suppose there are 20 working days in a month
 
     def work(self):
         self.notification = "I come to the office."
@@ -18,7 +19,7 @@ class Employee:
         days_worked = 0
         current_day = start_of_month
         while current_day <= today:
-            if current_day.weekday() < 5:  # 0-Monday, 4-Friday
+            if current_day.weekday() < self.WORKING_DAYS_PER_WEEK:  # 0-Monday, 4-Friday
                 days_worked += 1
             current_day += timedelta(days=1)
 
@@ -28,15 +29,13 @@ class Employee:
     def __str__(self):
         return f"My Position is {self.name}!"
 
-
 class Recruiter(Employee):
     def work(self):
         return 'I come to the office and start to hiring.'
 
-
 class Developer(Employee):
-    def __init__(self, name, salary_per_day, tech_stack):
-        super().__init__(name, salary_per_day)
+    def __init__(self, name, salary_per_day, tech_stack, *args, **kwargs):
+        super().__init__(name, salary_per_day, *args, **kwargs)
         self.tech_stack = tech_stack
 
     def work(self):
@@ -72,13 +71,13 @@ recruiter_1 = Recruiter('Recruiter - Jane', 80)
 dev1 = Developer("Developer - John", 100, ["Python", "JavaScript"])
 dev2 = Developer("Developer - Alice", 120, ["Python", "Java", "Psql"])
 print(recruiter_1.work())
-print(recruiter_1.__str__())
+print(recruiter_1)
 print(recruiter_1.check_salary())
 print(dev1.work())
-print(dev1.__str__())
+print(dev1)
 print(dev1.check_salary())
 print(dev2.work())
-print(dev2.__str__())
+print(dev2)
 print(dev2.check_salary())
 
 # Combine developers
@@ -97,4 +96,5 @@ elif dev1 < dev2:
     print(f"{dev2.name} knows more technologies than {dev1.name}")
 else:
     print(f"{dev1.name} and {dev2.name} know the same number of technologies")
+
 
