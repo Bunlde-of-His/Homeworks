@@ -22,12 +22,13 @@ class Employee:
 
 class Recruiter(Employee):
     def work(self):
-        return 'I come to the office and start to hiring.'
+        return super().work() + ' and start to hiring.'
 
 
 class Developer(Employee):
     def work(self):
-        return 'I come to the office and start to coding.'
+         return super().work() + ' and start to coding.'
+       
 
 
 recruiter_1 = Recruiter('Recruiter', 15)
