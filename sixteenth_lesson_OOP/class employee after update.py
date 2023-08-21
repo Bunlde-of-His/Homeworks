@@ -31,7 +31,7 @@ class Employee:
 
 class Recruiter(Employee):
     def work(self):
-        return 'I come to the office and start to hiring.'
+        return super().work() + ' and start to hiring.'
 
 class Developer(Employee):
     def __init__(self, name, salary_per_day, tech_stack, *args, **kwargs):
@@ -39,7 +39,7 @@ class Developer(Employee):
         self.tech_stack = tech_stack
 
     def work(self):
-        return 'I come to the office and start to coding.'
+        return super().work() + ' and start to coding.'
 
     def __add__(self, other):
         new_name = f"{self.name} {other.name}"
