@@ -29,6 +29,15 @@ class Employee:
     def __str__(self):
         return f"My Position is {self.name}!"
 
+    def __gt__(self, other):
+        return self.salary_per_day > other.salary_per_day
+    
+    def __lt__(self, other):
+        return self.salary_per_day < other.salary_per_day
+    
+    def __eq__(self, other):
+        return self.salary_per_day == other.salary_per_day
+
 class Recruiter(Employee):
     def work(self):
         return super().work() + ' and start to hiring.'
@@ -57,15 +66,6 @@ class Developer(Employee):
         return len(self.tech_stack) == len(other.tech_stack)
 
 
-def salary_comparing(first_salary, second_salary):
-    if first_salary > second_salary:
-        return 'Recruiter earns more money!'
-    elif first_salary < second_salary:
-        return 'Developer earns more money!'
-    else:
-        return 'Both salaries are equal!'
-
-
 # Create instances
 recruiter_1 = Recruiter('Recruiter - Jane', 80)
 dev1 = Developer("Developer - John", 100, ["Python", "JavaScript"])
@@ -87,7 +87,13 @@ print(f"Combined Tech Stack: {combined_dev.tech_stack}")
 print(f"Combined Salary: {dev1.salary_per_day + dev2.salary_per_day}")
 
 # Compare salaries
-print(salary_comparing(recruiter_1.salary_per_day, dev1.salary_per_day))
+if recruiter_1 > developer_1:
+    print('Recruiter earn more money!')
+elif recruiter_1 < developer_1:
+    print('Developer earn more money!')
+else:
+    print('Both salaries are equal!')
+
 
 # Compare developers by the number of technologies
 if dev1 > dev2:
