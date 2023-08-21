@@ -87,10 +87,10 @@ print(f"Combined Tech Stack: {combined_dev.tech_stack}")
 print(f"Combined Salary: {dev1.salary_per_day + dev2.salary_per_day}")
 
 # Compare salaries
-if recruiter_1 > developer_1:
-    print('Recruiter earn more money!')
-elif recruiter_1 < developer_1:
-    print('Developer earn more money!')
+if recruiter_1 > dev1:
+    print('Recruiter earn more money than Developer!')
+elif recruiter_1 < dev1:
+    print('Developer earn more money than Recruiter!')
 else:
     print('Both salaries are equal!')
 
@@ -102,5 +102,6 @@ elif dev1 < dev2:
     print(f"{dev2.name} knows more technologies than {dev1.name}")
 else:
     print(f"{dev1.name} and {dev2.name} know the same number of technologies")
+
 
 
