@@ -54,7 +54,7 @@ class Developer(Employee):
         new_name = f"{self.name} {other.name}"
         new_tech_stack = list(set(self.tech_stack + other.tech_stack))
         new_salary_per_day = max(self.salary_per_day, other.salary_per_day)
-        return Developer(new_name, new_salary_per_day, new_tech_stack)
+        return Developer(new_name, new_salary_per_day, tech_stack=new_tech_stack)
 
     def __gt__(self, other):
         return len(self.tech_stack) > len(other.tech_stack)
@@ -68,8 +68,8 @@ class Developer(Employee):
 
 # Create instances
 recruiter_1 = Recruiter('Recruiter - Jane', 80)
-dev1 = Developer("Developer - John", 100, ["Python", "JavaScript"])
-dev2 = Developer("Developer - Alice", 120, ["Python", "Java", "Psql"])
+dev1 = Developer("Developer - John", 100, tech_stack = ["Python", "JavaScript"])
+dev2 = Developer("Developer - Alice", 120, tech_stack = ["Python", "Java", "Psql"])
 print(recruiter_1.work())
 print(recruiter_1)
 print(recruiter_1.check_salary())
@@ -93,7 +93,6 @@ elif recruiter_1 < dev1:
     print('Developer earn more money than Recruiter!')
 else:
     print('Both salaries are equal!')
-
 
 # Compare developers by the number of technologies
 if dev1 > dev2:
