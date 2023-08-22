@@ -43,8 +43,8 @@ class Recruiter(Employee):
         return super().work() + ' and start to hiring.'
 
 class Developer(Employee):
-    def __init__(self, name, salary_per_day, tech_stack, *args, **kwargs):
-        super().__init__(name, salary_per_day, *args, **kwargs)
+    def __init__(self, *args, tech_stack, **kwargs):
+        super().__init__(*args, **kwargs)
         self.tech_stack = tech_stack
 
     def work(self):
