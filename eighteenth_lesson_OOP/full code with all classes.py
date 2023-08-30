@@ -70,6 +70,30 @@ class Employee:
         return self.salary_per_day == other.salary_per_day
     
 
+class CandidateManager:
+    @classmethod
+    def generate_candidates_from_web(cls, source):
+        response = requests.get(source)
+        lines = response.text.split('\n')
+        return cls._generate_candidates(lines)
+    
+    @classmethod
+    def generate_candidates_from_file(cls, source):
+        with open(source, 'r') as file:
+            lines = file.readlines()
+        return cls._generate_candidates(lines)
+    
+    @classmethod
+    def _generate_candidates(cls, lines):
+        candidates = []
+        reader = csv.DictReader(lines)
+        for row in reader:
+            candidate = Candidate(row['Full Name'], row['Email'],
+                                  row['Technologies'], row['Main Skill'], row['Main Skill Grade'])
+            candidates.append(candidate)
+        return candidates
+
+
 class Candidate:
     def __init__(self, full_name, email, tech_stack, main_skill, main_skill_grade):
         self.full_name = full_name
@@ -78,27 +102,21 @@ class Candidate:
         self.main_skill = main_skill
         self.main_skill_grade = main_skill_grade
     
-    def __str__(self):
-        return f"Full Name: {self.full_name}\nEmail: {self.email}\nTech Stack: {self.tech_stack}\nMain Skill: {self.main_skill}\nMain Skill Grade: {self.main_skill_grade}"
+    @property
+    def first_last_name(self):
+        names = self.full_name.split()
+        if len(names) >= 2:
+            return names[0] + ' ' + names[-1]
+        return self.full_name
     
-    @classmethod
-    def generate_candidates(cls, source):
-        candidates = []
-
-        if source.startswith("http://") or source.startswith("https://"):
-            response = requests.get(source)
-            lines = response.text.split('\n')
-        else:
-            with open(source, 'r') as file:
-                lines = file.readlines()
-        
-        reader = csv.DictReader(lines)
-        for row in reader:
-            candidate = cls(row['Full Name'], row['Email'],
-                            row['Technologies'], row['Main Skill'], row['Main Skill Grade'])
-            candidates.append(candidate)
-        
-        return candidates
+    def __str__(self):
+        return (
+            f"Full Name: {self.full_name}\n"
+            f"Email: {self.email}\n"
+            f"Tech Stack: {self.tech_stack}\n"
+            f"Main Skill: {self.main_skill}\n"
+            f"Main Skill Grade: {self.main_skill_grade}"
+        )
 
 
 class Recruiter(Employee):
@@ -167,8 +185,8 @@ else:
     print(f"{dev1.name} and {dev2.name} know the same number of technologies")
 
 # Example from candidate
-candidates = Candidate.generate_candidates("https://bitbucket.org/ivnukov/lesson2/raw/4f59074e6fbb552398f87636b5bf089a1618da0a/candidates.csv")
-print("List of candidates: ")
+candidates = CandidateManager.generate_candidates_from_web("https://bitbucket.org/ivnukov/lesson2/raw/4f59074e6fbb552398f87636b5bf089a1618da0a/candidates.csv")
+print("List of Candidates: ")
 for candidate in candidates:
     print(candidate)
     print()
