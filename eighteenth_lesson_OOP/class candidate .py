@@ -1,6 +1,29 @@
 import csv
 import requests
 
+class CandidateManager:
+    @classmethod
+    def generate_candidates_from_web(cls, source):
+        response = requests.get(source)
+        lines = response.text.split('\n')
+        return cls._generate_candidates(lines)
+    
+    @classmethod
+    def generate_candidates_from_file(cls, source):
+        with open(source, 'r') as file:
+            lines = file.readlines()
+        return cls._generate_candidates(lines)
+    
+    @classmethod
+    def _generate_candidates(cls, lines):
+        candidates = []
+        reader = csv.DictReader(lines)
+        for row in reader:
+            candidate = Candidate(row['Full Name'], row['Email'],
+                                  row['Technologies'], row['Main Skill'], row['Main Skill Grade'])
+            candidates.append(candidate)
+        return candidates
+
 class Candidate:
     def __init__(self, full_name, email, tech_stack, main_skill, main_skill_grade):
         self.full_name = full_name
@@ -8,6 +31,13 @@ class Candidate:
         self.tech_stack = tech_stack
         self.main_skill = main_skill
         self.main_skill_grade = main_skill_grade
+    
+    @property
+    def first_last_name(self):
+        names = self.full_name.split()
+        if len(names) >= 2:
+            return names[0] + ' ' + names[-1]
+        return self.full_name
     
     def __str__(self):
         return (
@@ -18,28 +48,7 @@ class Candidate:
             f"Main Skill Grade: {self.main_skill_grade}"
         )
 
-    
-    @classmethod
-    def generate_candidates(cls, source):
-        candidates = []
-
-        if source.startswith("http://") or source.startswith("https://"):
-            response = requests.get(source)
-            lines = response.text.split('\n')
-        else:
-            with open(source, 'r') as file:
-                lines = file.readlines()
-        
-        reader = csv.DictReader(lines)
-        for row in reader:
-            candidate = cls(row['Full Name'], row['Email'],
-                            row['Technologies'], row['Main Skill'], row['Main Skill Grade'])
-            candidates.append(candidate)
-        
-        return candidates
-
-
-candidates = Candidate.generate_candidates("https://bitbucket.org/ivnukov/lesson2/raw/4f59074e6fbb552398f87636b5bf089a1618da0a/candidates.csv")
+candidates = CandidateManager.generate_candidates_from_web("https://bitbucket.org/ivnukov/lesson2/raw/4f59074e6fbb552398f87636b5bf089a1618da0a/candidates.csv")
 for candidate in candidates:
     print(candidate)
     print()
