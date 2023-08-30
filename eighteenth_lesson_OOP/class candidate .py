@@ -10,7 +10,14 @@ class Candidate:
         self.main_skill_grade = main_skill_grade
     
     def __str__(self):
-        return f"Full Name: {self.full_name}\nEmail: {self.email}\nTech Stack: {self.tech_stack}\nMain Skill: {self.main_skill}\nMain Skill Grade: {self.main_skill_grade}"
+        return (
+            f"Full Name: {self.full_name}\n"
+            f"Email: {self.email}\n"
+            f"Tech Stack: {self.tech_stack}\n"
+            f"Main Skill: {self.main_skill}\n"
+            f"Main Skill Grade: {self.main_skill_grade}"
+        )
+
     
     @classmethod
     def generate_candidates(cls, source):
