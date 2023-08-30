@@ -38,7 +38,7 @@ class Candidate:
         
         return candidates
 
-# Example usage
+
 candidates = Candidate.generate_candidates("https://bitbucket.org/ivnukov/lesson2/raw/4f59074e6fbb552398f87636b5bf089a1618da0a/candidates.csv")
 for candidate in candidates:
     print(candidate)
